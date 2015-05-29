@@ -1,5 +1,5 @@
 {
-    "name": "saydoganreidin/solarium",
+    "name": "solarium/solarium",
     "type": "library",
     "description": "PHP Solr client",
     "keywords": ["solr", "search", "php"],
