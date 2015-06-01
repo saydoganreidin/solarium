@@ -170,7 +170,7 @@ class Curl extends Configurable implements AdapterInterface
             curl_setopt($handler, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         }
 
-        if (count($options['headers'])) {
+        if (isset($options['headers']) && count($options['headers'])) {
             $headers = array();
             foreach ($options['headers'] as $key => $value) {
                 $headers[] = $key . ": " . $value;
