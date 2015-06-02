@@ -56,9 +56,14 @@ class FacetValueTest extends \PHPUnit_Framework_TestCase
             'mean' => 'dummyMean',
             'stddev' => 'dummyStddev',
             'facets' => 'dummyFacets',
+            'percentiles' => 'dummyPercentiles',
+            'distinctValues' => 'dummyDistinctValues',
+            'countDistinct' => 'dummyCountDistinct',
+            'cardinality' => 'dummyCardinality',
         );
 
         $this->result = new FacetValue($this->value, $this->stats);
+
     }
 
     public function testGetValue()
@@ -104,6 +109,26 @@ class FacetValueTest extends \PHPUnit_Framework_TestCase
     public function testGetStddev()
     {
         $this->assertEquals($this->stats['stddev'], $this->result->getStddev());
+    }
+
+    public function testGetPercentiles()
+    {
+        $this->assertEquals($this->stats['percentiles'], $this->result->getPercentiles());
+    }
+
+    public function testGetDistinctValues()
+    {
+        $this->assertEquals($this->stats['distinctValues'], $this->result->getDistinctValues());
+    }
+
+    public function testGetCountDistinct()
+    {
+        $this->assertEquals($this->stats['countDistinct'], $this->result->getCountDistinct());
+    }
+
+    public function testGetCardinality()
+    {
+        $this->assertEquals($this->stats['cardinality'], $this->result->getCardinality());
     }
 
     public function testGetFacets()

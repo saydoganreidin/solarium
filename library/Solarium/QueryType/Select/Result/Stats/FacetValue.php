@@ -60,7 +60,7 @@ class FacetValue
     /**
      * Constructor
      *
-     * @param string $value
+     * @param string $field
      * @param array  $stats
      */
     public function __construct($value, $stats)
@@ -80,83 +80,146 @@ class FacetValue
     }
 
     /**
-     * Get min value
+     * The minimum value of the field/function
+     * in all documents in the set.
      *
      * @return string
      */
     public function getMin()
     {
-        return $this->stats['min'];
+        return $this->getStatValue('min');
     }
 
     /**
-     * Get max value
+     * The maximum value of the field/function
+     * in all documents in the set.
      *
      * @return string
      */
     public function getMax()
     {
-        return $this->stats['max'];
+        return $this->getStatValue('max');
     }
 
     /**
-     * Get sum value
+     * The sum of all values of the field/function
+     * in all documents in the set.
      *
      * @return string
      */
     public function getSum()
     {
-        return $this->stats['sum'];
+        return $this->getStatValue('sum');
     }
 
     /**
-     * Get count value
+     * The number of values found in all documents
+     * in the set for this field/function.
      *
      * @return string
      */
     public function getCount()
     {
-        return $this->stats['count'];
+        return $this->getStatValue('count');
     }
 
     /**
-     * Get missing value
+     * The number of documents in the set which
+     * do not have a value for this field/function.
      *
      * @return string
      */
     public function getMissing()
     {
-        return $this->stats['missing'];
+        return $this->getStatValue('missing');
     }
 
     /**
-     * Get sumOfSquares value
+     * Sum of all values squared (a by product of computing stddev)
      *
      * @return string
      */
     public function getSumOfSquares()
     {
-        return $this->stats['sumOfSquares'];
+        return $this->getStatValue('sumOfSquares');
     }
 
     /**
-     * Get mean value
+     * The average (v1 + v2 .... + vN)/N
      *
      * @return string
      */
     public function getMean()
     {
-        return $this->stats['mean'];
+        return $this->getStatValue('mean');
     }
 
     /**
-     * Get stddev value
+     * Standard deviation, measuring how
+     * widely spread the values in the data set are.
      *
      * @return string
      */
     public function getStddev()
     {
-        return $this->stats['stddev'];
+        return $this->getStatValue('stddev');
+    }
+
+    /**
+     * A list of percentile values based on cut-off
+     * points specified by the param value.
+     * These values are an approximation, using the t-digest algorithm.
+     *
+     * @return string
+     */
+    public function getPercentiles()
+    {
+        return $this->getStatValue('percentiles');
+    }
+
+    /**
+     * The set of all distinct values for the field/function
+     * in all of the documents in the set. This calculation
+     * can be very expensive for fields that do not have a tiny cardinality..
+     *
+     * @return string
+     */
+    public function getDistinctValues()
+    {
+        return $this->getStatValue('distinctValues');
+    }
+
+    /**
+     * The exact number of distinct values in the field/function
+     * in all of the documents in the set.
+     * This calculation can be very expensive for
+     * fields that do not have a tiny cardinality.
+     *
+     * @return string
+     */
+    public function getCountDistinct()
+    {
+        return $this->getStatValue('countDistinct');
+    }
+
+
+    /**
+     * A statistical approximation (currently using the HyperLogLog algorithm)
+     * of the number of distinct values in the field/function in all
+     * of the documents in the set. This calculation is much more
+     * efficient then using the 'countDistinct' option, but may
+     * not be 100% accurate. Input for this option can be
+     * floating point number between 0.0 and 1.0 indicating
+     * how aggressively the algorithm should try to be accurate: 0.0 means
+     * use as little memory as possible; 1.0 means use as much
+     * memory as needed to be as accurate as possible.
+     * 'true' is supported as an alias for "0.3".
+     *
+     * @return string
+     */
+    public function getCardinality()
+    {
+        return $this->getStatValue('cardinality');
     }
 
     /**
@@ -166,6 +229,20 @@ class FacetValue
      */
     public function getFacets()
     {
-        return $this->stats['facets'];
+        return $this->getStatValue('facets');
+    }
+
+    /**
+     * [checkStatKey description]
+     * @param  string $key   Stat Key Value
+     * @param  void   $value default return value
+     * @return void
+     */
+
+    private function getStatValue($key, $value = null)
+    {
+        $value = array_key_exists($key, $this->stats) ? $this->stats[$key] : $value;
+
+        return $value;
     }
 }
