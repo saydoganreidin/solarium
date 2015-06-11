@@ -155,8 +155,8 @@ class Curl extends Configurable implements AdapterInterface
             curl_setopt($handler, CURLOPT_PROXY, $proxy);
         }
 
-        if (!isset($options['headers']['Content-Type'])) {
-            $options['headers']['Content-Type'] = 'text/xml; charset=utf-8';
+        if ($method == Request::METHOD_POST && !isset($options['headers']['Content-Type'])) {
+           $options['headers']['Content-Type'] = 'text/xml; charset=utf-8';
         }
 
         // Try endpoint authentication first, fallback to request for backwards compatibility
@@ -170,7 +170,7 @@ class Curl extends Configurable implements AdapterInterface
             curl_setopt($handler, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         }
 
-        if (count($options['headers'])) {
+        if (isset($options['headers']) && count($options['headers'])) {
             $headers = array();
             foreach ($options['headers'] as $key => $value) {
                 $headers[] = $key . ": " . $value;

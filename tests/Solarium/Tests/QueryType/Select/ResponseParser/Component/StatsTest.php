@@ -70,6 +70,8 @@ class StatsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(4, $result->getResult('fieldB')->getMin());
 
         $facets = $result->getResult('fieldB')->getFacets();
+
+
         $this->assertEquals(5, $facets['fieldC']['value1']->getMin());
     }
 

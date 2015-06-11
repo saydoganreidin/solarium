@@ -1,7 +1,7 @@
 {
-    "name": "solarium/solarium",
+    "name": "saydoganreidin/solarium",
     "type": "library",
-    "description": "PHP Solr client",
+    "description": "PHP Solr client saydoganreidin forked",
     "keywords": ["solr", "search", "php"],
     "homepage": "http://www.solarium-project.org",
     "license": "NewBSD",
@@ -9,6 +9,10 @@
         {
             "name": "See GitHub contributors",
             "homepage": "https://github.com/basdenooijer/solarium/contributors"
+        },
+        {
+          "name": "Serdar AYDOGAN",
+          "email": "aydoganserdar@gmail.com"
         }
     ],
     "require": {
