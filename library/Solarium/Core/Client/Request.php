@@ -410,6 +410,7 @@ class Request extends Configurable
      */
     public function getUri()
     {
+        // echo urldecode($this->getHandler() . '?' . $this->getQueryString()) . '<br>';
         return $this->getHandler() . '?' . $this->getQueryString();
     }
 

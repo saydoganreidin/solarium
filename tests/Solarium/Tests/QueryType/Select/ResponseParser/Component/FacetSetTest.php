@@ -201,10 +201,6 @@ class FacetSetTest extends \PHPUnit_Framework_TestCase
                             'pivot' => array(
                                 array('field' => 'price', 'value' => 1, 'count' => 12),
                                 array('field' => 'price', 'value' => 2, 'count' => 8),
-                            ),
-                            'stats' => array(
-                                'min' => 4,
-                                'max' => 6,
                             )
                         )
                     ),
@@ -264,13 +260,6 @@ class FacetSetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             1,
             count($facets['cat,price'])
-        );
-
-        $pivots = $facets['cat,price']->getPivot();
-
-        $this->assertEquals(
-            2,
-            count($pivots[0]->getStats())
         );
 
         $this->query = new Query;

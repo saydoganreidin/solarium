@@ -52,6 +52,13 @@ class Pivot implements \IteratorAggregate, \Countable
     protected $pivot = array();
 
     /**
+     * Value array
+     *
+     * @var array
+     */
+    protected $stats = array();
+
+    /**
      * Constructor
      *
      * @param array $data
@@ -71,6 +78,16 @@ class Pivot implements \IteratorAggregate, \Countable
     public function getPivot()
     {
         return $this->pivot;
+    }
+
+    /**
+     * Get stats results
+     *
+     * @return Pivot[]
+     */
+    public function getStats()
+    {
+        return $this->stats;
     }
 
     /**

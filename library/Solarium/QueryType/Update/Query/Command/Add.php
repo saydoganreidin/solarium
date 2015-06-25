@@ -89,12 +89,9 @@ class Add extends Command
      */
     public function addDocuments($documents)
     {
-        //only check documents for type if in an array (iterating a Traversable may do unnecessary work)
-        if (is_array($documents)) {
-            foreach ($documents as $document) {
-                if (!($document instanceof DocumentInterface)) {
-                    throw new RuntimeException('Documents must implement DocumentInterface.');
-                }
+        foreach ($documents as $document) {
+            if (!($document instanceof DocumentInterface)) {
+                throw new RuntimeException('Documents must implement DocumentInterface.');
             }
         }
 

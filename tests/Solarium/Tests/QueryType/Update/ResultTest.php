@@ -33,11 +33,32 @@ namespace Solarium\Tests\QueryType\Update;
 
 use Solarium\QueryType\Update\Result as UpdateResult;
 
-class ResultTest extends AbstractResultTest
+class ResultTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var UpdateDummy
+     */
+    protected $result;
+
     public function setUp()
     {
         $this->result = new UpdateDummy();
+    }
+
+    public function testGetStatus()
+    {
+        $this->assertEquals(
+            1,
+            $this->result->getStatus()
+        );
+    }
+
+    public function testGetQueryTime()
+    {
+        $this->assertEquals(
+            12,
+            $this->result->getQueryTime()
+        );
     }
 }
 

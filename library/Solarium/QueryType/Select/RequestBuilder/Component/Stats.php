@@ -60,10 +60,8 @@ class Stats implements ComponentRequestBuilderInterface
 
         // add fields
         foreach ($component->getFields() as $field) {
-            $pivots = $field->getPivots();
 
-            $prefix = (count($pivots) > 0) ? '{!tag='.implode(',', $pivots).'}' : '';
-            $request->addParam('stats.field', $prefix . $field->getKey());
+            $request->addParam('stats.field', $field->getKey());
 
             // add field specific facet stats
             foreach ($field->getFacets() as $facet) {

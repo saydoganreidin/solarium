@@ -53,6 +53,7 @@ abstract class ResponseParser
      */
     public function convertToKeyValueArray($data)
     {
+        return $data;
         // key counter to convert values to arrays when keys are re-used
         $keys = array();
 

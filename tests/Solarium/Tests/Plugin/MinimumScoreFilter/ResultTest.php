@@ -34,9 +34,9 @@ namespace Solarium\Tests\Plugin\MinimumScoreFilter;
 use Solarium\Plugin\MinimumScoreFilter\Query;
 use Solarium\Plugin\MinimumScoreFilter\Result;
 use Solarium\QueryType\Select\Result\Document;
-use Solarium\Tests\QueryType\Select\Result\AbstractResultTest;
+use Solarium\Tests\QueryType\Select\Result\ResultTest as SelectResultTest;
 
-class ResultTest extends AbstractResultTest
+class ResultTest extends SelectResultTest
 {
     public function setUp()
     {

@@ -38,7 +38,9 @@
  */
 namespace Solarium\QueryType\Select\Result\Facet\Pivot;
 
-use Solarium\QueryType\Select\Result\Stats\Stats;
+use Solarium\QueryType\Select\Result\Stats\Stats as ResultStats;
+use Solarium\QueryType\Select\Result\Stats\Result as ResultStatsResult;
+use Solarium\QueryType\Select\Result\Stats\FacetValue as ResultStatsFacetValue;
 
 /**
  * Select field pivot result
@@ -68,13 +70,6 @@ class PivotItem extends Pivot
     protected $count;
 
     /**
-     * Field stats
-     *
-     * @var mixed
-     */
-    protected $stats;
-
-    /**
      * Constructor
      *
      * @param array $data
@@ -91,8 +86,21 @@ class PivotItem extends Pivot
             }
         }
 
-        if (isset($data['stats'])) {
-            $this->stats = new Stats($data['stats']);
+        if (isset($data['stats']['stats_fields'])) {
+            $results = array();
+            $statResults = $data['stats']['stats_fields'];
+            foreach ($statResults as $field => $stats) {
+                if (isset($stats['facets'])) {
+                    foreach ($stats['facets'] as $facetField => $values) {
+                        foreach ($values as $value => $valueStats) {
+                            $stats['facets'][$facetField][$value] = new ResultStatsFacetValue($value, $valueStats);
+                        }
+                    }
+                }
+
+                $results[$field] = new ResultStatsResult($field, $stats);
+            }
+            $this->stats = new ResultStats($results);
         }
     }
 
@@ -124,15 +132,5 @@ class PivotItem extends Pivot
     public function getCount()
     {
         return $this->count;
-    }
-
-    /**
-     * Get stats
-     * 
-     * @return Stats
-     */
-    public function getStats()
-    {
-        return $this->stats;
     }
 }
